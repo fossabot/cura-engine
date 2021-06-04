@@ -15,9 +15,25 @@ jobs:
     name: Synchronize with upstream
     runs-on: ubuntu-latest
     steps:
-      - name: Synchronize fork
-        uses: tgymnich/fork-sync@v1.5
-        with:
-          owner: Ultimaker
-          base: sync
-          pr_message: This is an automatically generated pull request to synchronize this repository with its upstream source.
+      # Clone downstream (This repository)
+      - name: Clone downstream
+        uses: actions/checkout@v2
+
+      # Add remote upstream
+      - name: Add remote upstream
+        run: git remote add upstream https://github.com/Ultimaker/CuraEngine.git
+
+      # Merge upstream
+      - name: Merge upstream
+        run: git merge upstream/master
+
+      # Delete workflows
+      - name: Delete workflows
+        run: |
+          rm .github -r
+          git add .github
+          git commit -m "Deleted workflows"
+
+       # Push changes to downstream
+      - name: Push to downstream
+        run: git push origin sync
