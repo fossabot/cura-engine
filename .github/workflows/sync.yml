@@ -18,5 +18,6 @@ jobs:
       - name: Synchronize fork
         uses: tgymnich/fork-sync@v1.5
         with:
+          owner: Ultimaker
           base: sync
           pr_message: This is an automatically generated pull request to synchronize this repository with its upstream source.
