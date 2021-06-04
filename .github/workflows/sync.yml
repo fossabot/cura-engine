@@ -1,0 +1,22 @@
+# Synchronize this repository with its upstream source (Ultimaker/CuraEngine)
+
+name: Synchronize
+on:
+  # Run on a schedule
+  schedule:
+    # Run every Saturday at 00:00 UTC
+    - cron: '0 0 * * 6'
+
+  # Run when manually triggered
+  workflow_dispatch:
+
+jobs:
+  diff:
+    name: Synchronize with upstream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Synchronize fork
+        uses: tgymnich/fork-sync@v1.5
+        with:
+          base: sync
+          pr_message: This is an automatically generated pull request to synchronize this repository with its upstream source.
