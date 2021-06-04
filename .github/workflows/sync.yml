@@ -18,6 +18,8 @@ jobs:
       # Clone downstream (This repository)
       - name: Clone downstream
         uses: actions/checkout@v2
+        with:
+          ref: sync
 
       # Add remote upstream
       - name: Add remote upstream
