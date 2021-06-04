@@ -22,6 +22,8 @@
 #include "../utils/FMatrix4x3.h" //For the mesh_rotation_matrix setting.
 #include "../utils/logoutput.h"
 
+#include <emscripten.h>
+
 namespace cura
 {
 
@@ -80,6 +82,11 @@ void CommandLine::sendProgress(const float& progress) const
         return;
     }
     //TODO: Do we want to print a progress bar? We'd need a better solution to not have that progress bar be ruined by any logging.
+
+    //Call progress handler with progress
+    char js[100];
+    std::sprintf(js, "globalThis[\"cura-wasm-progress-callback\"](%f)", progress);
+    emscripten_run_script(js);
 }
 
 void CommandLine::sliceNext()
