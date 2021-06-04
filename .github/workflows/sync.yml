@@ -33,10 +33,14 @@ jobs:
 
       # Delete workflows
       - name: Delete workflows
-        run: |
-          rm .github -r
-          git add .github
-          git commit -m "Deleted workflows"
+        run: rm .github -r
+
+      # Add and commit changes
+      - name: Add and commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Deleted workflows
+          file_pattern: .github
 
        # Push changes to downstream
       - name: Push to downstream
