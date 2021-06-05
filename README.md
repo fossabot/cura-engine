@@ -2,6 +2,24 @@
 
 [Cura Engine](https://github.com/ultimaker/curaengine) for [Web Assembly (WASM)](https://webassembly.org). This repository is the **downstream** version of Cura Engine that [Cura WASM](https://github.com/cloud-cnc/cura-wasm) uses. If you're trying to integrate Cura WASM into your application, this is the wrong repository (See the Cura WASM  repository instead). If you're trying to develop and contribute to Cura WASM, this is probably the correct repository.
 
+## Development
+
+### Building
+*Note: the below instructions assume you've checked out the [`sync`](https://github.com/cloud-cnc/cura-engine/tree/sync) branch.*
+1. Build the Docker container:
+```bash
+docker build . -f docker/build.dockerfile -t cura-engine
+```
+2. Run the Docker container:
+```bash
+docker run -it --name cura-engine cura-engine
+```
+3. Build Cura Engine:
+```bash
+# This should be run within the container
+./build.sh
+```
+
 ## FAQ
 
 ### Where's the code?
