@@ -51,6 +51,10 @@ endif()
 
 set(CMAKE_CXX_STANDARD 11)
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+endif()
+
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
@@ -215,7 +219,6 @@ set(engine_SRCS # Except main.cpp.
     src/utils/polygon.cpp
     src/utils/ProximityPointLink.cpp
     src/utils/SVG.cpp
-    src/utils/socket.cpp
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp.
