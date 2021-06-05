@@ -19,8 +19,6 @@
 #include "utils/string.h" // MMtoStream, PrecisionedDouble
 #include "WipeScriptConfig.h"
 
-#include <emscripten.h>
-
 namespace cura {
 
 std::string transliterate(const std::string& text)
@@ -274,20 +272,6 @@ std::string GCodeExport::getFileHeader(const std::vector<bool>& extruder_is_used
         prefix << ";MAXY:" << INT2MM(total_bounding_box.max.y) << new_line;
         prefix << ";MAXZ:" << INT2MM(total_bounding_box.max.z) << new_line;
     }
-
-    //Call metadata handler with metadata
-    char js[200];
-    std::sprintf(
-        js,
-        "globalThis[\"cura-wasm-metadata-callback\"](\"%s\", %d, %d, %d, %f, %d)",
-        flavorToString(flavor).c_str(),
-        ((print_time) ? static_cast<int>(*print_time) : 6666),
-        ((filament_used.size() >= 1)? static_cast<int>(filament_used[0]) : 6666),
-        ((filament_used.size() >= 2)? static_cast<int>(filament_used[1]) : 0),
-        Application::getInstance().current_slice->scene.extruders[0].settings.get<double>("machine_nozzle_size"),
-        int(getTotalFilamentUsed(0))
-    );
-    emscripten_run_script(js);
 
     return prefix.str();
 }
