@@ -4,7 +4,7 @@
 FROM wasienv/wasienv
 
 # Use root as working directory
-WORKDIR /root
+WORKDIR /root/cura-engine
 
 # Copy source code
 COPY . .
