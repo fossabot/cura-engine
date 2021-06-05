@@ -25,7 +25,7 @@ jobs:
       - name: Add remote upstream
         run: |
           git remote add upstream https://github.com/Ultimaker/CuraEngine.git
-          git pull upstream master
+          git pull upstream master --allow-unrelated-histories
 
       # Merge upstream
       - name: Merge upstream
