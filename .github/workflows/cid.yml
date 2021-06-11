@@ -50,16 +50,16 @@ jobs:
       # Move the build
       - name: Move the build
         run: |
-          ls ~/
-          ls ~/build
-          mv ~/build/CuraEngine.wasm ~/cura-engine.wasm
+          ls ./
+          ls ./build
+          mv ./build/CuraEngine.wasm ./cura-engine.wasm
 
       # Cache the build
       - name: Cache the build
         uses: actions/cache@v2
         with:
-          key: build-${{ hashFiles('~/cura-engine.wasm') }}
-          path: ~/cura-engine.wasm
+          key: build-${{ hashFiles('./cura-engine.wasm') }}
+          path: ./cura-engine.wasm
 
   # Test Cura Engine for WASM via slicing Benchy
 #  test:
@@ -72,7 +72,7 @@ jobs:
 #        uses: actions/cache@v2
 #        with:
 #          restore-keys: build-
-#          path: ~/cura-engine.wasm
+#          path: ./cura-engine.wasm
 #
 #      # Create the data directory
 #      - name: Create the data directory
@@ -92,12 +92,12 @@ jobs:
 #
 #      # Slice Benchy
 #      - name: Slice Benchy
-#        run: wasmer ~/cura-engine.wasm --mapdir /definitions:~/data/cura/resources/definitions --mapdir /data:~/data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
+#        run: wasmer ./cura-engine.wasm --mapdir /definitions:./data/cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
 #
 #      # Verify output
 #      - name: Verify output
 #        run: |
-#          if [ "${{ hashFiles('~/data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
+#          if [ "${{ hashFiles('./data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
 #            exit 1
 #          fi
 
@@ -112,7 +112,7 @@ jobs:
 #        uses: actions/cache@v2
 #        with:
 #          restore-keys: build-
-#          path: ~/cura-engine.wasm
+#          path: ./cura-engine.wasm
 #
 #      # Install Wasmer
 #      - name: Install Wasmer
