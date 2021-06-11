@@ -90,7 +90,9 @@ jobs:
 
       # Install Wasmer
       - name: Install Wasmer
-        run: curl https://get.wasmer.io -sSfL | sh
+        run: |
+          curl https://get.wasmer.io -sSfL | sh
+          source ~/.wasmer/wasmer.sh
 
       # Slice Benchy
       - name: Slice Benchy
