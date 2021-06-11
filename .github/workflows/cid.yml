@@ -49,9 +49,7 @@ jobs:
 
       # Move the build
       - name: Move the build
-        run: |
-          sudo chown -R $(id -u):$(id -g) ./build/CuraEngine.wasm
-          mv ./build/CuraEngine.wasm ./cura-engine.wasm
+        run: sudo mv ./build/CuraEngine.wasm ./cura-engine.wasm
 
       # Cache the build
       - name: Cache the build
