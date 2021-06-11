@@ -8,6 +8,9 @@ on:
     branches:
       - sync
 
+  # Run when manually triggered
+  workflow_dispatch:
+
 env:
   # SHA256 of Benchy GCODE for an Ultimaker 2
   BENCHY_HASH: 6ab57f1c3f8e86bc3cbd302c6fa6270acf06277c6335454e922419c25d42e97e
