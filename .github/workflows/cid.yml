@@ -44,7 +44,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: cloud-cnc/cura-engine
-          options: -v $GITHUB_WORKSPACE:/build
+          options: -v ${{ github.workspace }}:/build
           run: ./build.sh
 
       # Move the build
