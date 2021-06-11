@@ -90,7 +90,7 @@ jobs:
 
       # Setup Wasmer
       - name: Setup Wasmer
-        uses: Cloud-CNC/setup-wasmer@v1.0.0
+        uses: Cloud-CNC/setup-wasmer@v1
 
       # Slice Benchy
       - name: Slice Benchy
