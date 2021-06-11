@@ -72,11 +72,6 @@ jobs:
           restore-keys: build-
           path: ./cura-engine.wasm
 
-      - name: Debug 1
-        run: |
-          ls .
-          head -c 500 ./cura-engine.wasm
-
       # Create the data directory
       - name: Create the data directory
         run: mkdir data
@@ -92,6 +87,10 @@ jobs:
       - name: Download Benchy
         run: wget https://github.com/CreativeTools/3DBenchy/raw/master/Single-part/3DBenchy.stl -O benchy.stl
         working-directory: data
+
+      # Install Wasmer
+      - name: Install Wasmer
+        run: curl https://get.wasmer.io -sSfL | sh
 
       # Slice Benchy
       - name: Slice Benchy
