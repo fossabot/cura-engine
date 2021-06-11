@@ -24,8 +24,8 @@ jobs:
 #    name: Build Cura Engine
 #    runs-on: ubuntu-latest
 #    steps:
-#      # Clone source code (Sync branch)
-#      - name: Clone source code
+#      # Checkout source code (Sync branch)
+#      - name: Checkout source code
 #        uses: actions/checkout@v2
 #        with:
 #          ref: sync
@@ -90,7 +90,7 @@ jobs:
 
       # Setup Wasmer
       - name: Setup Wasmer
-        uses: Cloud-CNC/setup-wasmer@v1
+        uses: cloud-cnc/setup-wasmer@v1
 
       # Slice Benchy
       - name: Slice Benchy
