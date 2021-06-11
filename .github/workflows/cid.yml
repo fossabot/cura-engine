@@ -96,11 +96,6 @@ jobs:
       - name: Slice Benchy
         run: wasmer ./cura-engine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
 
-      - name: Debug 2
-        run: |
-          ls ./data
-          head -c 500 ./cura-engine.gcode
-
       # Verify output
       - name: Verify output
         run: |
