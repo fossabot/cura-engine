@@ -8,11 +8,11 @@
 *Note: the below instructions assume you've checked out the [`sync`](https://github.com/cloud-cnc/cura-engine/tree/sync) branch.*
 1. Build the Docker container:
 ```bash
-docker build . -f docker/build.dockerfile -t cura-engine
+docker build . -f docker/build.dockerfile -t cloud-cnc/cura-engine
 ```
 2. Run the Docker container:
 ```bash
-docker run -it --name cura-engine cura-engine
+docker run -it --name cura-engine cloud-cnc/cura-engine
 ```
 3. Build Cura Engine:
 ```bash

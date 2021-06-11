@@ -1,6 +1,7 @@
 # Synchronize this repository with its upstream source (Ultimaker/CuraEngine)
 
 name: Synchronize
+
 on:
   # Run on a schedule
   schedule:
@@ -11,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  diff:
+  synchronize:
     name: Synchronize with upstream
     runs-on: ubuntu-latest
     steps:
