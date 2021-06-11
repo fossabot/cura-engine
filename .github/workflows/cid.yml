@@ -88,11 +88,9 @@ jobs:
         run: wget https://github.com/CreativeTools/3DBenchy/raw/master/Single-part/3DBenchy.stl -O benchy.stl
         working-directory: data
 
-      # Install Wasmer
-      - name: Install Wasmer
-        run: |
-          curl https://get.wasmer.io -sSfL | sh
-          source ~/.wasmer/wasmer.sh
+      # Setup Wasmer
+      - name: Setup Wasmer
+        uses: cloud-cnc/setup-wasmer@v1
 
       # Slice Benchy
       - name: Slice Benchy
