@@ -9,6 +9,9 @@ WORKDIR /root/cura-engine
 # Copy source code
 COPY . .
 
+# Make build script executable
+RUN chmod +x ./script.sh
+
 # Disable promps while installing
 ENV DEBIAN_FRONTEND=noninteractive
 
