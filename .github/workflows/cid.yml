@@ -68,6 +68,7 @@ jobs:
       - name: Cache the build
         uses: actions/cache@v2
         with:
+          key: build-never-exists
           restore-keys: build-
           path: ./cura-engine.wasm
 
