@@ -20,83 +20,93 @@ env:
 
 jobs:
   # Build Cura Engine for WASM
-  build:
-    name: Build Cura Engine
-    runs-on: ubuntu-latest
-    steps:
-      # Clone source code (Sync branch)
-      - name: Clone source code
-        uses: actions/checkout@v2
-        with:
-          ref: sync
-
-      # Build the Docker image
-      - name: Build the Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: docker/build.dockerfile
-          push: false
-          tags: cloud-cnc/cura-engine
-
-      # Run the Docker image
-      - name: Run the Docker image
-        uses: addnab/docker-run-action@v3
-        with:
-          image: cloud-cnc/cura-engine
-          options: -v ${{ github.workspace }}/build:/root/cura-engine/build
-          run: ./build.sh
-
-      # Move the build
-      - name: Move the build
-        run: sudo mv ./build/CuraEngine.wasm ./cura-engine.wasm
-
-      # Cache the build
-      - name: Cache the build
-        uses: actions/cache@v2
-        with:
-          key: build-${{ hashFiles('./cura-engine.wasm') }}
-          path: ./cura-engine.wasm
-
-  # Test Cura Engine for WASM via slicing Benchy
-#  test:
-#    needs: build
-#    name: Test Cura Engine
+#  build:
+#    name: Build Cura Engine
 #    runs-on: ubuntu-latest
 #    steps:
-#      # Restore the build from the cache
+#      # Clone source code (Sync branch)
+#      - name: Clone source code
+#        uses: actions/checkout@v2
+#        with:
+#          ref: sync
+#
+#      # Build the Docker image
+#      - name: Build the Docker image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: docker/build.dockerfile
+#          push: false
+#          tags: cloud-cnc/cura-engine
+#
+#      # Run the Docker image
+#      - name: Run the Docker image
+#        uses: addnab/docker-run-action@v3
+#        with:
+#          image: cloud-cnc/cura-engine
+#          options: -v ${{ github.workspace }}/build:/root/cura-engine/build
+#          run: ./build.sh
+#
+#      # Move the build
+#      - name: Move the build
+#        run: sudo mv ./build/CuraEngine.wasm ./cura-engine.wasm
+#
+#      # Cache the build
 #      - name: Cache the build
 #        uses: actions/cache@v2
 #        with:
-#          restore-keys: build-
+#          key: build-${{ hashFiles('./cura-engine.wasm') }}
 #          path: ./cura-engine.wasm
-#
-#      # Create the data directory
-#      - name: Create the data directory
-#        run: mkdir data
-#
-#      # Clone 3D printer definitions
-#      - name: Clone 3D printer definitions
-#        uses: actions/checkout@v2
-#        with:
-#          path: data/cura
-#          repository: Ultimaker/Cura
-#
-#      # Download Benchy
-#      - name: Download Benchy
-#        run: wget https://github.com/CreativeTools/3DBenchy/raw/master/Single-part/3DBenchy.stl -O benchy.stl
-#        working-directory: data
-#
-#      # Slice Benchy
-#      - name: Slice Benchy
-#        run: wasmer ./cura-engine.wasm --mapdir /definitions:./data/cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
-#
-#      # Verify output
-#      - name: Verify output
-#        run: |
-#          if [ "${{ hashFiles('./data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
-#            exit 1
-#          fi
+
+  # Test Cura Engine for WASM via slicing Benchy
+  test:
+    #needs: build
+    name: Test Cura Engine
+    runs-on: ubuntu-latest
+    steps:
+      # Restore the build from the cache
+      - name: Cache the build
+        uses: actions/cache@v2
+        with:
+          restore-keys: build-
+          path: ./cura-engine.wasm
+
+      - name: Debug 1
+        run: |
+          ls .
+          head -c 500 ./cura-engine.wasm
+
+      # Create the data directory
+      - name: Create the data directory
+        run: mkdir data
+
+      # Clone 3D printer definitions
+      - name: Clone 3D printer definitions
+        uses: actions/checkout@v2
+        with:
+          path: cura
+          repository: Ultimaker/Cura
+
+      # Download Benchy
+      - name: Download Benchy
+        run: wget https://github.com/CreativeTools/3DBenchy/raw/master/Single-part/3DBenchy.stl -O benchy.stl
+        working-directory: data
+
+      # Slice Benchy
+      - name: Slice Benchy
+        run: wasmer ./cura-engine.wasm --mapdir /definitions:./cura/resources/definitions --mapdir /data:./data -- slice -j /definitions/ultimaker2.def.json -o /data/benchy.gcode -l /data/benchy.stl
+
+      - name: Debug 2
+        run: |
+          ls ./data
+          head -c 500 ./cura-engine.gcode
+
+      # Verify output
+      - name: Verify output
+        run: |
+          if [ "${{ hashFiles('./data/benchy.gcode') }}" != "${{ env.BENCHY_HASH }}" ]; then
+            exit 1
+          fi
 
   # Deploy Cura Engine for WASM to WAPM
 #  deploy:
