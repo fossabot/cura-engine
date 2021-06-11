@@ -34,7 +34,7 @@ jobs:
       - name: Build the Docker image
         uses: docker/build-push-action@v2
         with:
-          file: docker/build.dockerfile
+          file: $GITHUB_WORKSPACE/docker/build.dockerfile
           push: false
           tags: cloud-cnc/cura-engine
 
