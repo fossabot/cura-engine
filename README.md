@@ -1,4 +1,6 @@
 # Cura Engine (For WASM)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine?ref=badge_shield)
+
 
 [Cura Engine](https://github.com/ultimaker/curaengine) for [Web Assembly (WASM)](https://webassembly.org). This repository is the **downstream** version of Cura Engine that [Cura WASM](https://github.com/cloud-cnc/cura-wasm) uses. If you're trying to integrate Cura WASM into your application, this is the wrong repository (See the Cura WASM  repository instead). If you're trying to develop and contribute to Cura WASM, this is probably the correct repository.
 
@@ -36,3 +38,6 @@ Yes, absolutely. Make sure pull requests are made to the [`sync`](https://github
 
 ### How does this repository work?
 Every Saturday at `00:00 UTC`, [sync.yml](.github/workflows/sync.yml) will create a pull request to synchronize this repository with it's [upstream source](https://github.com/ultimaker/curaengine) and attempt to automatically merge it with this repository. On each push, [cid.yml](.github/workflows/cid.yml) will build and deploy it.
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCloud-CNC%2Fcura-engine?ref=badge_large)
